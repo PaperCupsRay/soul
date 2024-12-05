@@ -43,6 +43,7 @@ let userIDLow;
 let userIDTime = "";
 let proxyIPPool = [];
 let path = '/?ed=2560';
+let config = null;
 export default {
 	async fetch(request, env, ctx) {
 		try {
@@ -115,6 +116,7 @@ export default {
 			} else {
 				RproxyIP = env.RPROXYIP || !proxyIP ? 'true' : 'false';
 			}
+			if (env.CONFIG) config = await getConfig(env.CONFIG);
 			if (env.ADD) addresses = await 整理(env.ADD);
 			if (env.ADDAPI) addressesapi = await 整理(env.ADDAPI);
 			if (env.ADDNOTLS) addressesnotls = await 整理(env.ADDNOTLS);
@@ -235,6 +237,29 @@ export default {
 		}
 	},
 };
+
+async function getConfig(url) {
+	let newapi = null;
+	try {
+		const response = await fetch(apiUrl, {
+			method: 'get',
+			headers: {
+				'Accept': 'text/html,application/xhtml+xml,application/xml;'
+			},
+		}).then(response => response.ok ? response.text() : Promise.reject());
+		// 检查响应状态是否为'fulfilled'，即请求成功完成
+		if (response.status === 'fulfilled') 
+		{
+			// 获取响应的内容
+			const content = await response.value;
+			newapi = JSON.parse(content);
+		}
+	} catch (error) {
+		console.error(error);
+	} 
+	
+	return newapi;
+}
 
 async function vlessOverWSHandler(request) {
 
@@ -1352,6 +1377,7 @@ ${动态UUID}HOST: ${hostName}
 UUID: ${userID}
 FKID: ${fakeUserID}
 UA: ${UA}
+CONFIG: ${config}
 ${订阅器}
 ---------------------------------------------------------------
 ################################################################

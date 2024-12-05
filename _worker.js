@@ -47,6 +47,17 @@ let config = null;
 export default {
 	async fetch(request, env, ctx) {
 		try {
+
+
+			if (env.CONFIG) {
+				config = await getConfig(env.CONFIG);
+				if (config != null && typeof (config) == "object") {
+					for (let k in config) {
+						env[k] = config[k];
+					}
+				}
+			}
+
 			const UA = request.headers.get('User-Agent') || 'null';
 			const userAgent = UA.toLowerCase();
 
@@ -116,7 +127,6 @@ export default {
 			} else {
 				RproxyIP = env.RPROXYIP || !proxyIP ? 'true' : 'false';
 			}
-			if (env.CONFIG) config = await getConfig(env.CONFIG);
 			if (env.ADD) addresses = await 整理(env.ADD);
 			if (env.ADDAPI) addressesapi = await 整理(env.ADDAPI);
 			if (env.ADDNOTLS) addressesnotls = await 整理(env.ADDNOTLS);
@@ -1365,7 +1375,7 @@ ${动态UUID}HOST: ${hostName}
 UUID: ${userID}
 FKID: ${fakeUserID}
 UA: ${UA}
-CONFIG: ${config}
+CONFIG: ${typeof (config) == "object" ? JSON.parse(config) : config}
 ${订阅器}
 ---------------------------------------------------------------
 ################################################################

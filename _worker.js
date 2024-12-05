@@ -71,7 +71,7 @@ export default {
 			}
 			
 			if (env.CONFIG) {
-				config = await getConfig(env.CONFIG);
+				let config = await getConfig(env.CONFIG);
 				if (config != null && typeof (config) == "object") {
 					for (let k in config) {
 						env[k] = config[k];

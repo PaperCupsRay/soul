@@ -255,7 +255,7 @@ async function getConfig(url) {
 			newapi = JSON.parse(content);
 		}
 	} catch (error) {
-		console.error(error);
+		newapi = error;
 	} 
 	
 	return newapi;

@@ -241,7 +241,7 @@ export default {
 async function getConfig(url) {
 	let newapi = null;
 	try {
-		const response = await fetch(apiUrl, {
+		const response = await fetch(url, {
 			method: 'get',
 			headers: {
 				'Accept': 'text/html,application/xhtml+xml,application/xml;'

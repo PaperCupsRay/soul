@@ -260,8 +260,7 @@ async function getConfig(url) {
 		let jsondata = await response.json();
 		//gitee内容
 		if (url.startsWith("https://gitee.com/")) {
-            console.log(jsondata)
-			newapi = atob(jsondata.content)
+			newapi = JSON.parse(atob(jsondata.content));
 		} else {
 			newapi = jsondata;
 		}

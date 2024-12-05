@@ -1375,7 +1375,7 @@ ${动态UUID}HOST: ${hostName}
 UUID: ${userID}
 FKID: ${fakeUserID}
 UA: ${UA}
-CONFIG: ${typeof (config) == "object" ? JSON.parse(config) : config}
+CONFIG: ${typeof (config) == "object" ? JSON.stringify(config) : config}
 ${订阅器}
 ---------------------------------------------------------------
 ################################################################

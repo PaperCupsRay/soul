@@ -251,8 +251,14 @@ export default {
 async function getConfig(url) {
 	let newapi = null;
 	try {
-		const response = await fetch(url);
-		newapi = response.json()
+		const response = await fetch(url,
+			{
+				method: 'GET',
+				headers: {
+					'Cache-Control': 'no-cache'//不缓存
+				}
+			});
+		newapi = response.json();
 	} catch (error) {
 		newapi = error;
 	}

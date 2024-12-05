@@ -251,14 +251,20 @@ export default {
 async function getConfig(url) {
 	let newapi = null;
 	try {
-		const response = await fetch(url,
-			{
-				method: 'GET',
-				headers: {
-					'Cache-Control': 'no-cache'//不缓存
-				}
-			});
-		newapi = response.json();
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'Cache-Control': 'no-cache'//不缓存
+			}
+		});
+		let jsondata = await response.json();
+		//gitee内容
+		if (url.startsWith("https://gitee.com/")) {
+            console.log(jsondata)
+			newapi = atob(jsondata.content)
+		} else {
+			newapi = jsondata;
+		}
 	} catch (error) {
 		newapi = error;
 	}

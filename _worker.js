@@ -1,3 +1,4 @@
+
 import { connect } from 'cloudflare:sockets';
 
 let userID = '';
@@ -79,8 +80,8 @@ if (env.CONFIG) {
         }
     }
 }
-
-const UA = request.headers.get('User-Agent') || 'null';
+			
+			const UA = request.headers.get('User-Agent') || 'null';
 			const userAgent = UA.toLowerCase();
 			userID = env.UUID || env.uuid || env.PASSWORD || env.pswd || userID;
 			if (env.KEY || env.TOKEN || (userID && !isValidUUID(userID))) {

@@ -232,7 +232,7 @@ if (env.CONFIG) {
 				} else {
 					if (env.URL302) return Response.redirect(env.URL302, 302);
 					else if (env.URL) return await 代理URL(env.URL, url);
-					else return new Response(`不用怀疑！你UUID就是错的！！！, 正确UUID：${url.pathname}`, { status: 404 });
+					else return new Response(`不用怀疑！你UUID就是错的！！！, 正确UUID：${url.pathname}, 路径：${路径}`, { status: 404 });
 				}
 			} else {
 				socks5Address = url.searchParams.get('socks5') || socks5Address;
